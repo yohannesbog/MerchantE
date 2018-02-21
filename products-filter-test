@@ -1,0 +1,66 @@
+package Basics;
+
+
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class productFilter {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		System.setProperty("webdriver.chrome.driver", "C:\\Users\\john\\Desktop\\eclipse\\chromedriver.exe");
+		WebDriver driver= new ChromeDriver();
+		driver.get("http://ec2-54-174-213-136.compute-1.amazonaws.com:8080/admin");
+		driver.findElement(By.xpath("//a[@href='/admin/products']")).click();
+		driver.findElement(By.xpath("//div[@id='q_title_input']/select")).click();
+		driver.findElement(By.xpath("//div[@id='q_title_input']/select")).sendKeys(Keys.DOWN); // chose second option
+		driver.findElement(By.xpath("//input[@id='q_title']")).sendKeys("Yohannes");
+		driver.findElement(By.xpath("//div[@id='q_description_input']/select")).click();
+		driver.findElement(By.xpath("//div[@id='q_description_input']/select")).sendKeys(Keys.DOWN);  // chose second option
+		driver.findElement(By.xpath("//input[@id='q_description']")).sendKeys("Yohannes Product");
+		driver.findElement(By.xpath("//div[@id='q_author_input']/select")).click();
+		driver.findElement(By.xpath("//div[@id='q_author_input']/select")).sendKeys(Keys.DOWN);    // chose second option
+		driver.findElement(By.xpath("//input[@id='q_author']")).sendKeys("Yohannes B");
+		driver.findElement(By.xpath("//div[@id='q_price_input']/select")).click();
+		driver.findElement(By.xpath("//div[@id='q_price_input']/select")).sendKeys(Keys.DOWN);     // chose second option
+		driver.findElement(By.xpath("//input[@id='q_price']")).sendKeys("2");
+		driver.findElement(By.xpath("//select[@id='q_featured']")).sendKeys(Keys.DOWN);      // chose second option
+		driver.findElement(By.xpath("//input[@id='q_available_on_gteq']")).click();
+		// to select the given date on current month
+		List<WebElement> dates=driver.findElements(By.cssSelector("[data-handler='selectDay']"));  //choose common attribute = selectDate then we put in to list and iterate  
+	int count =driver.findElements(By.cssSelector("[data-handler='selectDay']")).size();
+	
+	for(int i=0;i<count;i++)
+	{
+		
+		String text= driver.findElements(By.cssSelector("[data-handler='selectDay']")).get(i).getText();
+		if(text.equalsIgnoreCase("20"))
+	
+	{
+		driver.findElements(By.cssSelector("[data-handler='selectDay']")).get(i).click();
+		break;
+	}
+	}
+	// for the second CREATED AT calendar option 
+	// we can follow the same style for the remaining calendars 
+	
+	driver.findElement(By.xpath("//input[@id='q_available_on_lteq']")).click();
+	for(int i=0;i<count;i++)
+{
+		
+		String text2= driver.findElements(By.cssSelector("[data-handler='selectDay']")).get(i).getText();
+		if(text2.equalsIgnoreCase("25"))
+	
+	{
+		driver.findElements(By.cssSelector("[data-handler='selectDay']")).get(i).click();
+		
+	}
+	}
+	driver.findElement(By.xpath("//input[@name='commit']")).submit();
+	driver.close();
+}}
