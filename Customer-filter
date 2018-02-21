@@ -1,0 +1,59 @@
+package Basics;
+
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class newcustomerFiler {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub
+				System.setProperty("webdriver.chrome.driver", "C:\\Users\\john\\Desktop\\eclipse\\chromedriver.exe");
+				WebDriver driver= new ChromeDriver();
+				driver.get("http://ec2-54-174-213-136.compute-1.amazonaws.com:8080/admin");
+				driver.findElement(By.xpath("//a[@href='/admin/customers']")).click();
+				driver.findElement(By.xpath("//div[@id='q_username_input']/select")).click();
+				driver.findElement(By.xpath("//div[@id='q_username_input']/select")).sendKeys(Keys.DOWN);// to select 2nd option
+				driver.findElement(By.xpath("//input[@id='q_username']")).sendKeys("Yohannes");
+				driver.findElement(By.xpath("//div[@id='q_email_input']/select")).click();
+				driver.findElement(By.xpath("//div[@id='q_email_input']/select")).sendKeys(Keys.DOWN);
+				driver.findElement(By.xpath("//div[@id='q_email_input']/select")).sendKeys(Keys.DOWN);// to select 3rd option
+				driver.findElement(By.xpath("//input[@id='q_email']")).sendKeys("Yohannes");
+				driver.findElement(By.xpath("//input[@id='q_created_at_gteq_datetime']")).click();
+				// to select the given date on current month
+				List<WebElement> dates=driver.findElements(By.cssSelector("[data-handler='selectDay']"));  //choose common attribute = selectDate then we put in to list and iterate  
+			int count =driver.findElements(By.cssSelector("[data-handler='selectDay']")).size();
+			
+			for(int i=0;i<count;i++)
+			{
+				
+				String text= driver.findElements(By.cssSelector("[data-handler='selectDay']")).get(i).getText();
+				if(text.equalsIgnoreCase("17"))
+			
+			{
+				driver.findElements(By.cssSelector("[data-handler='selectDay']")).get(i).click();
+				break;
+			}
+			}
+			driver.findElement(By.xpath("//input[@id='q_created_at_lteq_datetime']")).click();
+			for(int i=0;i<count;i++)
+		{
+				
+				String text1= driver.findElements(By.cssSelector("[data-handler='selectDay']")).get(i).getText();
+				if(text1.equalsIgnoreCase("19"))
+			
+			{
+				driver.findElements(By.cssSelector("[data-handler='selectDay']")).get(i).click();
+				
+			}
+			}
+			driver.findElement(By.xpath("//input[@name='commit']")).submit();
+			driver.close();
+	}
+
+}
