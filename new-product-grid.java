@@ -29,7 +29,8 @@ public class merchante {
 		driver.findElement(By.xpath("//select[@id='product_available_on_3i']")).click();
 		driver.findElement(By.xpath("//select[@id='product_available_on_3i']")).sendKeys(Keys.DOWN);
 		driver.findElement(By.cssSelector("[id='product_image_file_name']")).sendKeys("YohannesProduct image");
-		driver.findElement(By.xpath("//input[@name='commit']")).click();
+		driver.findElement(By.xpath("//input[@name='commit']")).submit();
+		driver.close();
 	}
 	
 }
